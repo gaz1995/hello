@@ -89,7 +89,7 @@ returns_df["full_equity_csum"] = returns_df["full_equity_returns"].cumsum()
 returns_df["sixty_forty_csum"] = returns_df["sixty_forty_returns"].cumsum()
 
 #plot the cumulative returns of the strategy and benchmarks
-fig,ax = plt.subplots(figsize=(14,5))
+fig1,ax = plt.subplots(figsize=(14,5))
 ax.plot(returns_df["strategy_csum"], label="Strategy Cumulative Returns", color="green")
 ax.plot(returns_df["full_equity_csum"], label="Full Equity Cumulative Returns", color="blue")
 ax.plot(returns_df["sixty_forty_csum"], label="60/40 Cumulative Returns", color="red")
@@ -97,7 +97,7 @@ plt.title(f"Our strategy's total return was {int(returns_df['strategy_csum'].max
 plt.xlabel("Years")
 plt.ylabel("Cumulative Return in %")
 plt.legend()
-st.pyplot(fig)
+st.pyplot(fig1)
 
 #Drawdown calculation function
 def max_drawdown(log_returns):
@@ -108,7 +108,7 @@ def max_drawdown(log_returns):
     return daily_drawdown
 
 #Plot drawdowns
-fig, ax = plt.subplots(figsize=(14,5))
+fig2, ax = plt.subplots(figsize=(14,5))
 ax.plot(max_drawdown(returns_df["strategy"]), color="green", label="Strategy Drawdown")
 ax.plot(max_drawdown(returns_df["full_equity_returns"]), color="blue", label="Full Equity Drawdown")
 ax.plot(max_drawdown(returns_df["sixty_forty_returns"]), color="red", label="60/40 Drawdown")
@@ -116,7 +116,7 @@ plt.title(f"Our strategy's maximum drawdown was {int(max_drawdown(returns_df['st
 plt.xlabel("Years")
 plt.ylabel("Drawdown in %")
 plt.legend()
-st.pyplot(fig)
+st.pyplot(fig2)
 
 #A function that creates a table with various performance metrics
 def performance(df):
@@ -188,7 +188,7 @@ future_expectations["real_return_csum"] = future_expectations["total_csum"] + fu
 future_expectations = future_expectations.set_index("year")
 
 #plot future returns with confidence interval
-fig, ax = plt.subplots(figsize=(14,5))
+fig3, ax = plt.subplots(figsize=(14,5))
 ax.plot(future_expectations["mean_return_csum"]*100, color="red", label="Strategy Return")
 ax.plot(future_expectations["upper_ci_csum"]*100, color="blue", label="Upper Confidence Interval", alpha=0.5)
 ax.plot(future_expectations["lower_ci_csum"]*100, color="blue", label="Lower Confidence Interval", alpha=0.5)
@@ -198,46 +198,46 @@ plt.xlabel("Years")
 plt.ylabel("Cumulative Returns in %")
 plt.legend()
 plt.show()
-st.pyplot(fig)
+st.pyplot(fig3)
 
 #plot nominal and real returns
-fig, ax = plt.subplots(figsize=(14,5))
+fig4, ax = plt.subplots(figsize=(14,5))
 future_expectations[["total_csum", "real_return_csum"]].plot(kind="bar",stacked=False,ax=ax)
 plt.title(f'By {int(future_dates[-1])} the expected total return could reach {int(future_expectations.iloc[investment_horizon,11])} USD, OR {int(future_expectations.iloc[investment_horizon,14])} USD when discounting for inflation.', size=13)
 plt.ylabel("Portfolio value in USD")
 plt.xlabel("Future Years")
 plt.legend(["Total Nominal Returns", "Total Real Returns"]);
-st.bar_chart(fig)
+st.bar_chart(fig4)
 
 #plot capital gains and contributions
-fig, ax = plt.subplots(figsize=(14,5))
+fig5, ax = plt.subplots(figsize=(14,5))
 future_expectations[["contributions_csum", "capital_gains_csum"]].plot(kind="bar",stacked=True,ax=ax)
 surpass = future_expectations.index[future_expectations["capital_gains_csum"] > future_expectations["contributions_csum"]][0]
 plt.title(f"Capital gains begin to exceed contribution staring from {surpass}.", size=13)
 plt.ylabel("Value in USD")
 plt.xlabel("Future Years")
 plt.legend(["Monthly Contributions", "Capital Gains"]);
-st.bar_chart(fig)
+st.bar_chart(fig5)
 
 #define and plot the annual returns for each strategy
 returns_df["year"]=returns_df.index.year
 grouped_df = returns_df.groupby(returns_df["year"]).sum()
 grouped_df["year"]=grouped_df.index
 grouped_df=grouped_df[["year", "strategy", "full_equity_returns", "sixty_forty_returns"]]
-fig, ax = plt.subplots(figsize=(14,5))
+fig6, ax = plt.subplots(figsize=(14,5))
 grouped_df[["year", "strategy", "full_equity_returns", "sixty_forty_returns"]].plot(x="year", kind="bar", ax=ax)
 plt.ylabel("Past Years")
 plt.xlabel("Annual Portfolio Returns in decimals")
 plt.title("Our strategy outperforms most of the years")
 plt.legend(["Our Strategy", "Full Equity", "60/40"], loc="lower right");
-st.bar_chart(fig)
+st.bar_chart(fig6)
 
 #define and plot the latest weights in our portfolio
 last_weights = risk_parity(target_stdev=stdev_target, leverage=leverage_target).iloc[-1]
 last_weights = last_weights[assets_index]/sum(last_weights[assets_index])*100
-fig, ax = plt.subplots(figsize=(14,5))
+fig7, ax = plt.subplots(figsize=(14,5))
 last_weights.plot(x="year", kind="bar", ax=ax)
 plt.ylabel("Latest weights in %")
 plt.xlabel("Asset Class")
 plt.title("Verify how the weights change depending on risk apetite");
-st.bar_chart(fig)
+st.bar_chart(fig7)
