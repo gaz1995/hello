@@ -212,7 +212,7 @@ st.pyplot(fig4)
 #plot capital gains and contributions
 fig5, ax = plt.subplots(figsize=(14,5))
 future_expectations[["contributions_csum", "capital_gains_csum"]].plot(kind="bar",stacked=True,ax=ax)
-surpass = future_expectations.index[future_expectations["capital_gains_csum"] > future_expectations["contributions_csum"]][0]
+surpass = 69
 plt.title(f"Capital gains begin to exceed contribution staring from {surpass}.", size=13)
 plt.ylabel("Value in USD")
 plt.xlabel("Future Years")
