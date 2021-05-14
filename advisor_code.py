@@ -207,7 +207,7 @@ plt.title(f'By {int(future_dates[-1])} the expected total return could reach {in
 plt.ylabel("Portfolio value in USD")
 plt.xlabel("Future Years")
 plt.legend(["Total Nominal Returns", "Total Real Returns"]);
-st.bar_chart(fig4)
+st.pyplot(fig4)
 
 #plot capital gains and contributions
 fig5, ax = plt.subplots(figsize=(14,5))
@@ -217,7 +217,7 @@ plt.title(f"Capital gains begin to exceed contribution staring from {surpass}.",
 plt.ylabel("Value in USD")
 plt.xlabel("Future Years")
 plt.legend(["Monthly Contributions", "Capital Gains"]);
-st.bar_chart(fig5)
+st.pyplot(fig5)
 
 #define and plot the annual returns for each strategy
 returns_df["year"]=returns_df.index.year
@@ -230,7 +230,7 @@ plt.ylabel("Past Years")
 plt.xlabel("Annual Portfolio Returns in decimals")
 plt.title("Our strategy outperforms most of the years")
 plt.legend(["Our Strategy", "Full Equity", "60/40"], loc="lower right");
-st.bar_chart(fig6)
+st.pyplot(fig6)
 
 #define and plot the latest weights in our portfolio
 last_weights = risk_parity(target_stdev=stdev_target, leverage=leverage_target).iloc[-1]
@@ -240,4 +240,4 @@ last_weights.plot(x="year", kind="bar", ax=ax)
 plt.ylabel("Latest weights in %")
 plt.xlabel("Asset Class")
 plt.title("Verify how the weights change depending on risk apetite");
-st.bar_chart(fig7)
+st.pyplot(fig7)
