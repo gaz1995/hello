@@ -1,5 +1,4 @@
 import streamlit as st
-import numpy as np
 import matplotlib.pyplot as plt
 import yfinance as yf
 import numpy as np
@@ -7,25 +6,21 @@ import pandas as pd
 import datetime as dt
 import time
 from scipy import stats
-import ipywidgets as widgets
-import altair as alt
-import plotly.express as px
 
 
 ## To set the dashboard title
 st.title('Financial DashBoard')
 st.write("Here is the results for you!")
 
+
 ## To write something in the sidebar
 st.sidebar.write("User Input Features")
-
 
 risk_level = [('Low Risk'), ('Moderate Low Risk'), ('Moderate Risk'), ('Moderate High Risk'), ('High Risk')]
 
 option = st.sidebar.selectbox(
     'Which of the following options best describes your risk profile?',
      risk_level)
-
 
 min_inv_horizon = 10
 max_inv_horizon = 40
@@ -43,8 +38,6 @@ inflation = st.sidebar.selectbox(label="What is your inflation expectation?",opt
 initial_investment = st.sidebar.number_input(value=1000,label="What is your initial investment amount in dollar amount?",min_value=0,max_value=1000000,step=500)
 
 
-
-
 stdev_options = [0.05, 0.1, 0.15, 0.20, 0.25]
 stdev_target = stdev_options[int(risk_level.index(option))]
 leverage_options = [1,2,3,4,5]
@@ -52,12 +45,10 @@ leverage_target = leverage_options[int(risk_level.index(option))]
 
 
 etf_tickers = ["SPY", "IJR", "QQQ", "VUG", "TIP", "IEI", "LQD", "GLD"]
-
 #fetch the price data for each one of the above ETFS with
 start_date = "2007-03-09"
 today = dt.date.today().strftime("%Y-%m-%d")
 price_df = yf.download(etf_tickers, start=start_date, end=today, progress = False)["Adj Close"]
-
 #rename each column to the asset class they represent
 price_df = price_df.rename(columns = {"SPY":"BIG_CAPS_US",
                                       "IJR":"SMALL_CAPS_US",
@@ -71,10 +62,8 @@ price_df = price_df.rename(columns = {"SPY":"BIG_CAPS_US",
 
 returns_df = np.log(price_df/price_df.shift(1))
 returns_df = returns_df.dropna()
-
 returns_df["full_equity_returns"] = returns_df["BIG_CAPS_US"]
 returns_df["sixty_forty_returns"] = returns_df["BIG_CAPS_US"]*0.6 + returns_df["US_TREASURIES"]*0.4
-
 assets = ["BIG_CAPS_US","SMALL_CAPS_US","GROWTH_US","VALUE_US","TIPS","US_TREASURIES","CORP_BONDS","GOLD"]
 assets_index = [i for i in range(len(assets))]
 asset_classes = returns_df[assets]
@@ -110,8 +99,6 @@ returns_df["strategy_csum"] = returns_df["strategy"].cumsum()
 returns_df["full_equity_csum"] = returns_df["full_equity_returns"].cumsum()
 returns_df["sixty_forty_csum"] = returns_df["sixty_forty_returns"].cumsum()
 
-
-
 ## To plot the cumulative sum of each strategy
 fig,ax = plt.subplots(figsize=(14,5))
 ax.plot(returns_df["strategy_csum"], label="Strategy Cumulative Returns", color="green")
@@ -123,15 +110,12 @@ plt.ylabel("Cumulative Return in %")
 plt.legend()
 st.pyplot(fig)
 
-
-
 def max_drawdown(log_returns):
     un_log = np.exp(log_returns)-1
     index = 100*(1+un_log).cumprod()
     peaks = index.cummax()
     daily_drawdown = ((index - peaks)/peaks)*100
     return daily_drawdown
-
 max_d= max_drawdown(returns_df[["strategy","full_equity_returns","sixty_forty_returns"]])
 
 
@@ -144,7 +128,6 @@ plt.xlabel("Years")
 plt.ylabel("Drawdown in %")
 plt.legend()
 st.pyplot(fig)
-
 
 
 def performance(df):
@@ -189,6 +172,7 @@ future_dates = [today_date] #create an array where the first date is today
 for i in range(1,investment_horizon+1): #append to futures_dates the yearly dates until the end of the investment horizon
     future_dates.append(today_date + i)
 
+          
 future_expectations = pd.DataFrame()
 future_expectations["year"] = future_dates
 future_expectations["mean_return"] = performance(returns_df["strategy"])["Annual Return"]
@@ -214,6 +198,7 @@ future_expectations["inflation_loss_csum"] = future_expectations["inflation_loss
 future_expectations["real_return_csum"] = future_expectations["total_csum"] + future_expectations["inflation_loss_csum"]
 future_expectations = future_expectations.set_index("year")
 
+          
 fig, ax = plt.subplots(figsize=(14,5))
 ax.plot(future_expectations["mean_return_csum"]*100, color="red", label="Strategy Return")
 ax.plot(future_expectations["upper_ci_csum"]*100, color="blue", label="Upper Confidence Interval", alpha=0.5)
@@ -225,6 +210,7 @@ plt.ylabel("Cumulative Returns in %")
 plt.legend()
 st.pyplot(fig)
 
+          
 chart_data = future_expectations[["total_csum", "real_return_csum"]]
 plt.title(f'By {int(future_dates[-1])} the expected total return could reach {int(future_expectations.iloc[investment_horizon,11])} USD, OR {int(future_expectations.iloc[investment_horizon,14])} USD when discounting for inflation.', size=13)
 plt.ylabel("Portfolio value in USD")
@@ -241,6 +227,7 @@ plt.xlabel("Future Years")
 plt.legend(["Monthly Contributions", "Capital Gains"])
 st.bar_chart(chart_data2)
 
+          
 returns_df["year"]=returns_df.index.year
 grouped_df = returns_df.groupby(returns_df["year"]).sum()
 grouped_df["year"]=grouped_df.index
@@ -255,14 +242,10 @@ plt.legend(["Our Strategy", "Full Equity", "60/40"])
 st.bar_chart(chart_data3)
 
 
-
-
 last_weights = risk_parity(target_stdev=stdev_target, leverage=leverage_target).iloc[-1]
 last_weights = last_weights[assets_index]/sum(last_weights[assets_index])*100
-
 chart_data4 = last_weights
 plt.ylabel("Latest weights in %")
 plt.xlabel("Asset Class")
 plt.title("Verify how the weights change depending on risk apetite")
 st.bar_chart(chart_data4)
-
