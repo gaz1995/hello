@@ -16,7 +16,7 @@ st.sidebar.write("User Input Features")
 risk_level = [('Low Risk'), ('Moderate Low Risk'), ('Moderate Risk'), ('Moderate High Risk'), ('High Risk')]
 option = st.sidebar.selectbox('Which of the following options best describes your risk profile?', risk_level)
 investment_horizon = st.sidebar.slider('Which is your investment horizon (the minimum inv.horizon is 10 years)?',value=20,min_value=10,max_value=40)
-monthly_contributions = st.sidebar.number_input(value=1000,label="What is your monthly contribution in dollar amount?",min_value=0,max_value=1000000,step=100)
+monthly_contribution = st.sidebar.number_input(value=1000,label="What is your monthly contribution in dollar amount?",min_value=0,max_value=1000000,step=100)
 inflation = st.sidebar.selectbox(label="What is your inflation expectation?",options=[0,0.01,0.02,0.03,0.04,0.05])
 initial_investment = st.sidebar.number_input(value=1000,label="What is your initial investment amount in dollar amount?",min_value=0,max_value=1000000,step=500)
 
