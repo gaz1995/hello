@@ -20,7 +20,7 @@ st.write("Here is the results for you!")
 st.sidebar.write("User Input Features")
 
 
-risk_level = [('High Risk'), ('Moderate High Risk'), ('Moderate Risk'),('Moderate Low Risk'),('Low Risk')]
+risk_level = [('Low Risk'), ('Moderate Low Risk'), ('Moderate Risk'), ('Moderate High Risk'), ('High Risk')]
 
 option = st.sidebar.selectbox(
     'Which of the following options best describes your risk profile?',
@@ -28,10 +28,10 @@ option = st.sidebar.selectbox(
 
 
 min_inv_horizon = 10
-max_inv_horizon = 25
+max_inv_horizon = 40
 investment_horizon = st.sidebar.slider(
     'Which is your investment horizon (the minimum inv.horizon is 10 years)?',
-    value=15,
+    value=20,
     min_value=min_inv_horizon,
     max_value=max_inv_horizon
 )
