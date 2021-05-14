@@ -160,7 +160,7 @@ st.table(performance_table)
 #dataframe with future expectations
 today_date = dt.datetime.now().year
 future_dates = [today_date]
-for i in range(1,investment_horizon.value+1):
+for i in range(1,investment_horizon+1):
     future_dates.append(today_date + i)
 future_expectations = pd.DataFrame()
 future_expectations["year"] = future_dates
