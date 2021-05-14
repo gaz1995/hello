@@ -6,7 +6,6 @@ import pandas as pd
 import datetime as dt
 import time
 from scipy import stats
-%matplotlib inline
 
 #Dashboard title
 st.title('Financial Planning Dashboard')
