@@ -87,7 +87,7 @@ returns_df["strategy_csum"] = returns_df["strategy"].cumsum()
 returns_df["full_equity_csum"] = returns_df["full_equity_returns"].cumsum()
 returns_df["sixty_forty_csum"] = returns_df["sixty_forty_returns"].cumsum()
 
-st.write(">>>First we will consider the historical timeline.")
+st.markdown("***First we will consider the historical timeline***")
 st.write("In this plot you can verify the behaviour of these portfolios when holding them from 2007 to the present date!")
 #plot the cumulative returns of the strategy and benchmarks
 fig1,ax = plt.subplots(figsize=(14,5))
@@ -190,7 +190,7 @@ future_expectations["inflation_loss_csum"] = future_expectations["inflation_loss
 future_expectations["real_return_csum"] = future_expectations["total_csum"] + future_expectations["inflation_loss_csum"]
 future_expectations = future_expectations.set_index("year")
 
-st.write(">>>Now we consider the future time horizon. Here, everything is an expectation and nothing is guaranteed.")
+st.markdown("***Now we consider the future time horizon. Here, everything is an expectation and nothing is guaranteed***")
 st.write("In this plot we can see the long run expected trend of our strategy and the respective confidence interval.")
 #plot future returns with confidence interval
 fig3, ax = plt.subplots(figsize=(14,5))
