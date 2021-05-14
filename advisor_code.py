@@ -193,7 +193,7 @@ ax.plot(future_expectations["mean_return_csum"]*100, color="red", label="Strateg
 ax.plot(future_expectations["upper_ci_csum"]*100, color="blue", label="Upper Confidence Interval", alpha=0.5)
 ax.plot(future_expectations["lower_ci_csum"]*100, color="blue", label="Lower Confidence Interval", alpha=0.5)
 ax.fill_between(future_expectations.index ,future_expectations["upper_ci_csum"]*100, future_expectations["lower_ci_csum"]*100, alpha=0.2)
-plt.title(f"The expected total returns fall between {round(future_expectations.iloc[investment_horizon.value,5]*100,2)}% and {round(future_expectations.iloc[investment_horizon.value,4]*100,2)}% in the span of {investment_horizon.value} years.", size=13)
+plt.title(f"The expected total returns fall between {round(future_expectations.iloc[investment_horizon,5]*100,2)}% and {round(future_expectations.iloc[investment_horizon,4]*100,2)}% in the span of {investment_horizon} years.", size=13)
 plt.xlabel("Years")
 plt.ylabel("Cumulative Returns in %")
 plt.legend()
