@@ -9,7 +9,6 @@ from scipy import stats
 
 #Dashboard title
 st.title('Financial Planning Dashboard')
-st.write("Here is the results for you!")
 
 #Get the inputs from the user for various variables
 st.sidebar.write("User Input Features")
@@ -88,6 +87,8 @@ returns_df["strategy_csum"] = returns_df["strategy"].cumsum()
 returns_df["full_equity_csum"] = returns_df["full_equity_returns"].cumsum()
 returns_df["sixty_forty_csum"] = returns_df["sixty_forty_returns"].cumsum()
 
+st.write(">>>First we will consider the historical timeline.")
+st.write("In this plot you can verify the behaviour of these portfolios when holding them from 2007 to the present date!")
 #plot the cumulative returns of the strategy and benchmarks
 fig1,ax = plt.subplots(figsize=(14,5))
 ax.plot(returns_df["strategy_csum"], label="Strategy Cumulative Returns", color="green")
@@ -107,6 +108,7 @@ def max_drawdown(log_returns):
     daily_drawdown = ((index - peaks)/peaks)*100
     return daily_drawdown
 
+st.write("Drawdown is very usefull at verifiying the peak-to-trough. Are you able to stomach a drop of more than 50%?")
 #Plot drawdowns
 fig2, ax = plt.subplots(figsize=(14,5))
 ax.plot(max_drawdown(returns_df["strategy"]), color="green", label="Strategy Drawdown")
@@ -145,6 +147,7 @@ def performance(df):
                          "Positive days": positive_percent, "Negative days": negative_percent}
     return performance_table
 
+st.write("Here you can quantitatively compare the portfolios between various metrics.")
 #Merge the peformance of our stratgy and benchmarks in a single dataframe
 def performance_table(returns_df=returns_df):
     strategy = pd.DataFrame(performance(returns_df["strategy"]), index = ["Our Strategy"]).T
@@ -187,6 +190,8 @@ future_expectations["inflation_loss_csum"] = future_expectations["inflation_loss
 future_expectations["real_return_csum"] = future_expectations["total_csum"] + future_expectations["inflation_loss_csum"]
 future_expectations = future_expectations.set_index("year")
 
+st.write(">>>Now we consider the future time horizon. Here, everything is an expectation and nothing is guaranteed.")
+st.write("In this plot we can see the long run expected trend of our strategy and the respective confidence interval.")
 #plot future returns with confidence interval
 fig3, ax = plt.subplots(figsize=(14,5))
 ax.plot(future_expectations["mean_return_csum"]*100, color="red", label="Strategy Return")
@@ -200,6 +205,7 @@ plt.legend()
 plt.show()
 st.pyplot(fig3)
 
+st.write("We must consider the effect of inflation on the portfolio's returns. Staying in cash if a bad idea if you expect positive inflation.")
 #plot nominal and real returns
 fig4, ax = plt.subplots(figsize=(14,5))
 future_expectations[["total_csum", "real_return_csum"]].plot(kind="bar",stacked=False,ax=ax)
@@ -209,6 +215,7 @@ plt.xlabel("Future Years")
 plt.legend(["Total Nominal Returns", "Total Real Returns"]);
 st.pyplot(fig4)
 
+st.write("Savings make for most of the portfolio in the early stages and capital gains overtake later. Both are crutial for building wealth!")
 #plot capital gains and contributions
 fig5, ax = plt.subplots(figsize=(14,5))
 future_expectations[["contributions_csum", "capital_gains_csum"]].plot(kind="bar",stacked=True,ax=ax)
@@ -219,6 +226,7 @@ plt.xlabel("Future Years")
 plt.legend(["Monthly Contributions", "Capital Gains"]);
 st.pyplot(fig5)
 
+st.write("What do you value in a portfolio? Consistency, high returns, downside protection? Verify if these annual results satisfy you.")
 #define and plot the annual returns for each strategy
 returns_df["year"]=returns_df.index.year
 grouped_df = returns_df.groupby(returns_df["year"]).sum()
@@ -232,6 +240,7 @@ plt.title("Our strategy outperforms most of the years")
 plt.legend(["Our Strategy", "Full Equity", "60/40"], loc="lower right");
 st.pyplot(fig6)
 
+st.write("The weights are ever-changing and depend on the risk profile you choose")          
 #define and plot the latest weights in our portfolio
 last_weights = risk_parity(target_stdev=stdev_target, leverage=leverage_target).iloc[-1]
 last_weights = last_weights[assets_index]/sum(last_weights[assets_index])*100
@@ -239,5 +248,5 @@ fig7, ax = plt.subplots(figsize=(14,5))
 last_weights.plot(x="year", kind="bar", ax=ax)
 plt.ylabel("Latest weights in %")
 plt.xlabel("Asset Class")
-plt.title("Verify how the weights change depending on risk apetite");
+plt.title("Most of the portfolio will be allocated to safer assets, since we follow risk parity.");
 st.pyplot(fig7)
