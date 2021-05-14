@@ -203,7 +203,7 @@ st.pyplot(fig)
 #plot nominal and real returns
 fig, ax = plt.subplots(figsize=(14,5))
 future_expectations[["total_csum", "real_return_csum"]].plot(kind="bar",stacked=False,ax=ax)
-plt.title(f'By {int(future_dates[-1])} the expected total return could reach {int(future_expectations.iloc[investment_horizon.value,11])} USD, OR {int(future_expectations.iloc[investment_horizon.value,14])} USD when discounting for inflation.', size=13)
+plt.title(f'By {int(future_dates[-1])} the expected total return could reach {int(future_expectations.iloc[investment_horizon,11])} USD, OR {int(future_expectations.iloc[investment_horizon,14])} USD when discounting for inflation.', size=13)
 plt.ylabel("Portfolio value in USD")
 plt.xlabel("Future Years")
 plt.legend(["Total Nominal Returns", "Total Real Returns"]);
