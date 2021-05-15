@@ -13,7 +13,7 @@ from matplotlib.patches import Rectangle
 st.title('Financial Planning Dashboard')
 
 st.text("The dashboard consists of two parts: \n1. Visulization \n2. Strategy Fundamentals")
-st.markdown("**1. Visulization**")
+st.header("**1. Visulization**")
 
 #Get the inputs from the user for various variables
 st.sidebar.write("User Input Features")
@@ -92,7 +92,7 @@ returns_df["strategy_csum"] = returns_df["strategy"].cumsum()
 returns_df["full_equity_csum"] = returns_df["full_equity_returns"].cumsum()
 returns_df["sixty_forty_csum"] = returns_df["sixty_forty_returns"].cumsum()
 
-st.markdown("***First we will consider the historical timeline***")
+st.subheader("**First we will consider the historical timeline**")
 st.write("In this plot you can verify the behaviour of these portfolios when holding them from 2007 to the present date!")
 #plot the cumulative returns of the strategy and benchmarks
 fig1,sp = plt.subplots(figsize=(14, 5))
