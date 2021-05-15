@@ -19,7 +19,7 @@ option = st.sidebar.selectbox('Which of the following options best describes you
 investment_horizon = st.sidebar.slider('Which is your investment horizon (the minimum inv.horizon is 10 years)?',value=20,min_value=10,max_value=40)
 monthly_contribution = st.sidebar.number_input(value=1000,label="What is your monthly contribution in dollar amount?",min_value=0,max_value=1000000,step=100)
 inflation = st.sidebar.selectbox(label="What is your annual inflation expectation?",options=[0,0.01,0.015,0.02,0.025,0.03])
-initial_investment = st.sidebar.number_input(value=1000,label="What is your initial investment amount in dollar amount?",min_value=0,max_value=1000000,step=500)
+initial_investment = st.sidebar.number_input(value=10000,label="What is your initial investment amount in dollar amount?",min_value=10000,max_value=1000000,step=500)
 
 #match the risk levels to the standard deviation and leverage values
 stdev_options = [0.05, 0.1, 0.15, 0.20, 0.25]
