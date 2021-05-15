@@ -242,7 +242,7 @@ plt.title(f"Capital gains begin to exceed contribution staring from {surpass}.",
 plt.ylabel("Value in USD")
 plt.xlabel("Future Years")
 years_array = [i for i in future_expectations.index]
-if surpass != nan:
+if surpass != np.nan:
   ax.axvline(x=years_array.index(surpass), color="black",ls='--')
   plt.title(f"Capital gains begin to exceed contribution staring from {surpass}.", size=13)
 else:
