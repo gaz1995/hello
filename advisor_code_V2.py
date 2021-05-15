@@ -13,7 +13,7 @@ from matplotlib.patches import Rectangle
 st.title('Financial Planning Dashboard')
 
 st.text("The dashboard consists of two parts: \n1. Visulization \n2. Strategy Fundamentals")
-st.header("**1. Visualization**")
+st.header("1. Visualization")
 
 #Get the inputs from the user for various variables
 st.sidebar.write("User Input Features")
@@ -306,7 +306,7 @@ plt.ylabel("Asset Classes")
 plt.title("Correlation between the assets proves what we already know: bonds and stocks have low to negative correlation.", pad=20);
 st.pyplot(fig8)
 
-st.markdown("**1. Strategy Fundamentals**")
+st.header("2. Strategy Fundamentals")
 st.write("**The 60/40 Benchmark Portfolio** - We use the traditional 60/40 portfolio as our benchmark, which consists of an allocation of 60% to equities (“SPY” was used in our case) and 40% to bonds (iShares 3-7 Year Treasury Bond ETF was used in our case). The idea of having a benchmark portfolio is to provide a comparison mechanism against our own trading strategy. The primary advantage of such portfolio lies in the diversification effect offered by the partially uncorrelated nature of stocks and bonds. Also, the 60/40 is designed to provide “equity-like returns with bond-like volatility”. The incorporation of bonds in the portfolio should thus increase the risk-adjusted return and therefore the Sharpe Ratio. The historical effect has been to lower maximum drawdowns compared to portfolio fully invested in equities. Although 60/40 portfolio brings some diversification effect, its risk is still highly concentrated mainly coming from the equities. Empirical test has pointed out that a portfolio that has 60% of the capital invested in equities actually has more like 80% of its risk allocated to equities. This is due to the fact that equities tend to carry so much more risk than other asset classes.  Consequently, the idea of allocating risk instead of allocating capital was emerged, which is the central point of risk parity. We will provide more detailed explanation in the following sessions.")
 
 st.write("**The Idea behind the Risk Parity and All-Weather Portfolio** - The idea of “All weather strategy” was created to take advantage of the powers of diversification. It is a risk-balanced portfolio of asset classes constructed to provide equity-like returns with far less risk (hence a higher Sharpe ratio). In addition to it, the strategy is designed to provide consistent returns across a wide range of economic environment, therefore, being a robust strategy.")
