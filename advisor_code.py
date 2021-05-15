@@ -248,7 +248,6 @@ if surpass is not np.nan:
 else:
     plt.title(f"Capital gains do not exceed the monthly contribution with these chosen preferences.", size=13)
     ax.legend(["Monthly Contributions", "Capital Gains"])
-ax.legend(["Surpass Year", "Monthly Contributions", "Capital Gains"])
 ax.tick_params(labeltop=False, labelright=True)
 ax.grid(axis="y", linestyle="--")
 ax.set_axisbelow(True);
