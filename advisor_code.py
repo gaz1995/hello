@@ -233,25 +233,25 @@ plt.grid(axis="y", linestyle="--")
 ax.set_axisbelow(True);
 st.pyplot(fig4)
 
-st.write("Savings make for most of the portfolio in the early stages and capital gains overtake later. Both are crutial for building wealth!")
+#st.write("Savings make for most of the portfolio in the early stages and capital gains overtake later. Both are crutial for building wealth!")
 #plot capital gains and contributions
-fig5, ax = plt.subplots(figsize=(14,5),sharey=True)
-future_expectations[["contributions_csum", "capital_gains_csum"]].plot(kind="bar",stacked=True,ax=ax,color=["tab:orange", "tab:blue"])
-surpass = future_expectations.index[future_expectations["capital_gains_csum"] > future_expectations["contributions_csum"]].min()
-plt.ylabel("Value in USD")
-plt.xlabel("Future Years")
-years_array = [i for i in future_expectations.index]
-if surpass is not np.nan:
-    ax.axvline(x=years_array.index(surpass), color="black",ls='--')
-    plt.title(f"Capital gains begin to exceed contribution staring from {surpass}.", size=13)
-    ax.legend(["Surpass Year", "Monthly Contributions", "Capital Gains"])
-else:
-    plt.title(f"Capital gains do not exceed the monthly contribution with these chosen preferences.", size=13)
-    ax.legend(["Monthly Contributions", "Capital Gains"])
-ax.tick_params(labeltop=False, labelright=True)
-ax.grid(axis="y", linestyle="--")
-ax.set_axisbelow(True);
-st.pyplot(fig5)
+#fig5, ax = plt.subplots(figsize=(14,5),sharey=True)
+#future_expectations[["contributions_csum", "capital_gains_csum"]].plot(kind="bar",stacked=True,ax=ax,color=["tab:orange", "tab:blue"])
+#surpass = future_expectations.index[future_expectations["capital_gains_csum"] > future_expectations["contributions_csum"]].min()
+#plt.ylabel("Value in USD")
+#plt.xlabel("Future Years")
+#years_array = [i for i in future_expectations.index]
+#if surpass is not np.nan:
+#    ax.axvline(x=years_array.index(surpass), color="black",ls='--')
+#    plt.title(f"Capital gains begin to exceed contribution staring from {surpass}.", size=13)
+#     ax.legend(["Surpass Year", "Monthly Contributions", "Capital Gains"])
+#else:
+#    plt.title(f"Capital gains do not exceed the monthly contribution with these chosen preferences.", size=13)
+#    ax.legend(["Monthly Contributions", "Capital Gains"])
+#ax.tick_params(labeltop=False, labelright=True)
+#ax.grid(axis="y", linestyle="--")
+#ax.set_axisbelow(True);
+#st.pyplot(fig5)
 
 st.write("What do you value in a portfolio? Consistency, high returns, downside protection? Verify if these annual results satisfy you.")
 #define and plot the annual returns for each strategy
