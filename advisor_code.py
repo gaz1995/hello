@@ -100,7 +100,7 @@ top_cumsum = returns_df["strategy_csum"].max()+1
 min_cumsum = returns_df["full_equity_csum"].min()
 re = Rectangle((13850,-0.7),1000,top_cumsum, facecolor="r", alpha=0.1)
 re2 = Rectangle((18250,-0.7),200,top_cumsum, facecolor="r", alpha=0.1)
-plt.annotate("Global Financial Crisis",(13900,-0.7),weight='bold')
+plt.annotate("Global Financial Crisis",(13900,top_cumsum-0.8),weight='bold')
 plt.annotate("2020 Covid Crisis",(18000,-0.7),weight='bold')
 sp.add_patch(re)
 sp.add_patch(re2)
