@@ -8,7 +8,6 @@ import time
 from scipy import stats
 
 #theme
-[theme]
 primaryColor="#F63366"
 backgroundColor="#B1FF70"
 secondaryBackgroundColor="#F0F2F6"
