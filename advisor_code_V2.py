@@ -13,6 +13,8 @@ from matplotlib.patches import Rectangle
 st.title('Financial Planning Dashboard')
 
 st.markdown("The dashboard consists of two parts: \n1.Visulization \n2.Strategy Fundamentals")
+st.markdown("1. Visulization")
+st.markdown("2. Strategy Fundamentals")
 
 #Get the inputs from the user for various variables
 st.sidebar.write("User Input Features")
