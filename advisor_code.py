@@ -90,14 +90,22 @@ returns_df["sixty_forty_csum"] = returns_df["sixty_forty_returns"].cumsum()
 st.markdown("***First we will consider the historical timeline***")
 st.write("In this plot you can verify the behaviour of these portfolios when holding them from 2007 to the present date!")
 #plot the cumulative returns of the strategy and benchmarks
-fig1,ax = plt.subplots(figsize=(14,5))
-ax.plot(returns_df["strategy_csum"], label="Strategy Cumulative Returns", color="green")
-ax.plot(returns_df["full_equity_csum"], label="Full Equity Cumulative Returns", color="blue")
-ax.plot(returns_df["sixty_forty_csum"], label="60/40 Cumulative Returns", color="red")
+fig1,sp = plt.subplots(figsize=(14, 5))
+sp.plot(returns_df["strategy_csum"], label="Strategy Cumulative Returns", color="green")
+sp.plot(returns_df["full_equity_csum"], label="Full Equity Cumulative Returns", color="blue")
+sp.plot(returns_df["sixty_forty_csum"], label="60/40 Cumulative Returns", color="red")
+top_cumsum = returns_df["strategy_csum"].max()+1
+min_cumsum = returns_df["full_equity_csum"].min()
+re = Rectangle((13850,-0.7),1000,top_cumsum, facecolor="r", alpha=0.1)
+re2 = Rectangle((18250,-0.7),200,top_cumsum, facecolor="r", alpha=0.1)
+plt.annotate("Global Financial Crisis",(13900,-0.7),weight='bold')
+plt.annotate("2020 Covid Crisis",(18000,-0.7),weight='bold')
+sp.add_patch(re)
+sp.add_patch(re2)
 plt.title(f"Our strategy's total return was {int(returns_df['strategy_csum'].max()*100)}% while for full equity was {int(returns_df['full_equity_csum'].max()*100)}% and for the 60/40 was {int(returns_df['sixty_forty_csum'].max()*100)}% during this period.", size=13)
 plt.xlabel("Years")
 plt.ylabel("Cumulative Return in %")
-plt.legend()
+plt.legend();
 st.pyplot(fig1)
 
 #Drawdown calculation function
@@ -110,14 +118,20 @@ def max_drawdown(log_returns):
 
 st.write("Drawdown is very usefull at verifiying the peak-to-trough. Are you able to stomach a drop of more than 50%?")
 #Plot drawdowns
-fig2, ax = plt.subplots(figsize=(14,5))
-ax.plot(max_drawdown(returns_df["strategy"]), color="green", label="Strategy Drawdown")
-ax.plot(max_drawdown(returns_df["full_equity_returns"]), color="blue", label="Full Equity Drawdown")
-ax.plot(max_drawdown(returns_df["sixty_forty_returns"]), color="red", label="60/40 Drawdown")
+fig2, sp = plt.subplots(figsize=(14,5))
+sp.plot(max_drawdown(returns_df["strategy"]), color="green", label="Strategy Drawdown")
+sp.plot(max_drawdown(returns_df["full_equity_returns"]), color="blue", label="Full Equity Drawdown")
+sp.plot(max_drawdown(returns_df["sixty_forty_returns"]), color="red", label="60/40 Drawdown")
+re = Rectangle((13850,0),1000,-56, facecolor="r", alpha=0.1)
+re2 = Rectangle((18250,0),200,-56, facecolor="r", alpha=0.1)
+plt.annotate("Global Financial Crisis",(13900,-58),weight='bold')
+plt.annotate("2020 Covid Crisis",(18000,-58),weight='bold')
+sp.add_patch(re)
+sp.add_patch(re2)
 plt.title(f"Our strategy's maximum drawdown was {int(max_drawdown(returns_df['strategy']).min())}% while for full equity was {int(max_drawdown(returns_df['full_equity_returns']).min())}% and for 60/40 was {int(max_drawdown(returns_df['sixty_forty_returns']).min())}%.", size=13)
 plt.xlabel("Years")
 plt.ylabel("Drawdown in %")
-plt.legend()
+plt.legend();
 st.pyplot(fig2)
 
 #A function that creates a table with various performance metrics
@@ -198,32 +212,39 @@ ax.plot(future_expectations["mean_return_csum"]*100, color="red", label="Strateg
 ax.plot(future_expectations["upper_ci_csum"]*100, color="blue", label="Upper Confidence Interval", alpha=0.5)
 ax.plot(future_expectations["lower_ci_csum"]*100, color="blue", label="Lower Confidence Interval", alpha=0.5)
 ax.fill_between(future_expectations.index ,future_expectations["upper_ci_csum"]*100, future_expectations["lower_ci_csum"]*100, alpha=0.2)
-plt.title(f"The expected total returns fall between {round(future_expectations.iloc[investment_horizon,5]*100,2)}% and {round(future_expectations.iloc[investment_horizon,4]*100,2)}% in the span of {investment_horizon} years.", size=13)
+plt.title(f"The expected total returns fall between {round(future_expectations.iloc[investment_horizon.value,5]*100,2)}% and {round(future_expectations.iloc[investment_horizon.value,4]*100,2)}% in the span of {investment_horizon.value} years, considering our past performance.", size=13)
 plt.xlabel("Years")
 plt.ylabel("Cumulative Returns in %")
-plt.legend()
-plt.show()
+plt.legend();
 st.pyplot(fig3)
 
 st.write("We must consider the effect of inflation on the portfolio's returns. Staying in cash is a bad idea if you expect positive inflation.")
 #plot nominal and real returns
 fig4, ax = plt.subplots(figsize=(14,5))
-future_expectations[["total_csum", "real_return_csum"]].plot(kind="bar",stacked=False,ax=ax)
-plt.title(f'By {int(future_dates[-1])} the expected total return could reach {int(future_expectations.iloc[investment_horizon,11])} USD, OR {int(future_expectations.iloc[investment_horizon,14])} USD when discounting for inflation.', size=13)
+future_expectations[["total_csum", "real_return_csum", "inflation_loss_csum"]].plot(kind="bar",stacked=False,ax=ax, color=["tab:blue", "tab:orange", "tab:red"])
+plt.title(f'By {int(future_dates[-1])} the expected total return could reach {int(future_expectations.iloc[investment_horizon.value,11])} USD, OR {int(future_expectations.iloc[investment_horizon.value,14])} USD when discounting for inflation.', size=13)
 plt.ylabel("Portfolio value in USD")
 plt.xlabel("Future Years")
-plt.legend(["Total Nominal Returns", "Total Real Returns"]);
+ax.legend(["Loss of purchasing power", "Total Nominal Returns", "Total Real Returns"])
+ax.tick_params(labeltop=False, labelright=True)
+plt.grid(axis="y", linestyle="--")
+ax.set_axisbelow(True);
 st.pyplot(fig4)
 
 st.write("Savings make for most of the portfolio in the early stages and capital gains overtake later. Both are crutial for building wealth!")
 #plot capital gains and contributions
-fig5, ax = plt.subplots(figsize=(14,5))
-future_expectations[["contributions_csum", "capital_gains_csum"]].plot(kind="bar",stacked=True,ax=ax)
-surpass = future_expectations.index[future_expectations["capital_gains_csum"] > future_expectations["contributions_csum"]].min()
-plt.title(f"Capital gains begin to exceed contribution staring from the year {surpass}.", size=13)
+fig5, ax = plt.subplots(figsize=(14,5),sharey=True)
+future_expectations[["contributions_csum", "capital_gains_csum"]].plot(kind="bar",stacked=True,ax=ax,color=["tab:orange", "tab:blue"])
+surpass = future_expectations.index[future_expectations["capital_gains_csum"] > future_expectations["contributions_csum"]][0]
+plt.title(f"Capital gains begin to exceed contribution staring from {surpass}.", size=13)
 plt.ylabel("Value in USD")
 plt.xlabel("Future Years")
-plt.legend(["Monthly Contributions", "Capital Gains"]);
+years_array = [i for i in future_expectations.index]
+ax.axvline(x=years_array.index(surpass), color="black",ls='--')
+ax.legend(["Surpass Year", "Monthly Contributions", "Capital Gains"])
+ax.tick_params(labeltop=False, labelright=True)
+ax.grid(axis="y", linestyle="--")
+ax.set_axisbelow(True);
 st.pyplot(fig5)
 
 st.write("What do you value in a portfolio? Consistency, high returns, downside protection? Verify if these annual results satisfy you.")
@@ -232,12 +253,22 @@ returns_df["year"]=returns_df.index.year
 grouped_df = returns_df.groupby(returns_df["year"]).sum()
 grouped_df["year"]=grouped_df.index
 grouped_df=grouped_df[["year", "strategy", "full_equity_returns", "sixty_forty_returns"]]
-fig6, ax = plt.subplots(figsize=(14,5))
-grouped_df[["year", "strategy", "full_equity_returns", "sixty_forty_returns"]].plot(x="year", kind="bar", ax=ax)
+fig6,ax = plt.subplots(figsize=(14,5))
+outperform_count = 0
+for year in grouped_df["year"]:
+    if grouped_df["strategy"][year]>grouped_df["full_equity_returns"][year] and grouped_df["strategy"][year]>grouped_df["sixty_forty_returns"][year]:
+        outperform_count += 1
+grouped_df[["year", "strategy", "full_equity_returns", "sixty_forty_returns"]].plot(x="year", kind="bar", ax=ax, color=["tab:green", "tab:blue", "tab:orange"])
 plt.ylabel("Annual Portfolio Returns in decimals")
 plt.xlabel("Past Years")
-plt.title("Our strategy outperforms most of the years")
-plt.legend(["Our Strategy", "Full Equity", "60/40"], loc="lower right");
+plt.title(f"Our strategy outperforms {outperform_count} out of the {(dt.date.today()).year-2007} past years in terms of returns.")
+plt.grid(axis="y", linestyle="--")
+plt.ylim(-0.5,0.5)
+ax.set_axisbelow(True)
+ax.tick_params(labeltop=False, labelright=True)
+mean_strategy = grouped_df["strategy"].mean()
+ax.axhline(mean_full_eq, color="black", ls='--');
+plt.legend(["Our Strategy Mean", "Our Strategy", "Full Equity", "60/40", "Mean"], loc="lower right");
 st.pyplot(fig6)
 
 st.write("The weights are ever-changing and depend on the risk profile you choose")          
@@ -245,8 +276,23 @@ st.write("The weights are ever-changing and depend on the risk profile you choos
 last_weights = risk_parity(target_stdev=stdev_target, leverage=leverage_target).iloc[-1]
 last_weights = last_weights[assets_index]/sum(last_weights[assets_index])*100
 fig7, ax = plt.subplots(figsize=(14,5))
-last_weights.plot(x="year", kind="bar", ax=ax)
+last_weights.plot(x="year", kind="bar", ax=ax, color=['tab:blue', 'tab:red', 'seagreen', 'tab:orange', 'tab:purple', 'teal', 'midnightblue', 'gold'])
+for x in range(len(assets_index)):
+    plt.text(x-0.125, last_weights[x]+1, f"{round(last_weights[x],2)}%")
+plt.ylim(0,55)
 plt.ylabel("Latest weights in %")
 plt.xlabel("Asset Class")
-plt.title("Most of the portfolio will be allocated to safer assets, since we follow risk parity.");
+plt.title(f"Since we follow risk parity, most of the portfolio will be allocated to safer assets. That is why bonds make for {round(last_weights[['US_TREASURIES','TIPS','CORP_BONDS']].sum())}% of the portfolio")
+ax.tick_params(labeltop=False, labelright=True)
+plt.grid(axis="y", linestyle="--")
+ax.set_axisbelow(True);
 st.pyplot(fig7)
+
+st.write("This matrix allows us to verify how each assets behaves in relation to the others. Low and negative correlations are key for diversification purposes!") 
+#plot correlation matrix
+correlation_df = returns_df[assets].corr()
+fig8, ax = plt.subplots(1,1,figsize=(12,10))
+sns.heatmap(correlation_df, annot=True, cmap="viridis", cbar_kws={"label": "Correlation Intensity: 1 =Perfectly Correlated and -1 =Inversly Correlated"})
+plt.ylabel("Asset Classes")
+plt.title("Correlation between the assets proves what we already know: bonds and stocks have low to negative correlation.", pad=20);
+st.pyplot(fig8)
