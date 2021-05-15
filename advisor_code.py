@@ -7,6 +7,7 @@ import datetime as dt
 import time
 import seaborn as sns
 from scipy import stats
+from matplotlib.patches import Rectangle
 
 #Dashboard title
 st.title('Financial Planning Dashboard')
