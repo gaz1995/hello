@@ -25,7 +25,7 @@ inflation = st.sidebar.selectbox(label="What is your annual inflation expectatio
 initial_investment = st.sidebar.number_input(value=10000,label="What is your initial investment amount in dollar amount?",min_value=10000,max_value=1000000,step=500)
 
 #sidebar text
-st.sidebar.write(f"You have a {option} appetite, meaning your risk will be similar to the benchmark. You decided to begin investing with {initial_investment} USD, and to contribute monthly with {monthly_contribution}$ during {investment_horizon} year. Finally you expect an annual inflation of {inflation*100}%.")
+st.sidebar.write(f"You have a {option} appetite. You decided to begin investing with {initial_investment} USD, and to contribute monthly with {monthly_contribution}$ during {investment_horizon} year. Finally you expect an annual inflation of {inflation*100}%.")
 
 #match the risk levels to the standard deviation and leverage values
 stdev_options = [0.05, 0.1, 0.15, 0.20, 0.25]
