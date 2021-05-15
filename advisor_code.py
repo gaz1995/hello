@@ -234,8 +234,8 @@ grouped_df["year"]=grouped_df.index
 grouped_df=grouped_df[["year", "strategy", "full_equity_returns", "sixty_forty_returns"]]
 fig6, ax = plt.subplots(figsize=(14,5))
 grouped_df[["year", "strategy", "full_equity_returns", "sixty_forty_returns"]].plot(x="year", kind="bar", ax=ax)
-plt.ylabel("Past Years")
-plt.xlabel("Annual Portfolio Returns in decimals")
+plt.ylabel("Annual Portfolio Returns in decimals")
+plt.xlabel("Past Years")
 plt.title("Our strategy outperforms most of the years")
 plt.legend(["Our Strategy", "Full Equity", "60/40"], loc="lower right");
 st.pyplot(fig6)
