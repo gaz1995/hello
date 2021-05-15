@@ -7,13 +7,6 @@ import datetime as dt
 import time
 from scipy import stats
 
-#theme
-primaryColor="#F63366"
-backgroundColor="#B1FF70"
-secondaryBackgroundColor="#F0F2F6"
-textColor="#262730"
-font="sans serif"
-
 #Dashboard title
 st.title('Financial Planning Dashboard')
 
