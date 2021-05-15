@@ -269,7 +269,7 @@ plt.ylim(-0.5,0.5)
 ax.set_axisbelow(True)
 ax.tick_params(labeltop=False, labelright=True)
 mean_strategy = grouped_df["strategy"].mean()
-ax.axhline(mean_full_eq, color="black", ls='--');
+ax.axhline(mean_strategy, color="black", ls='--');
 plt.legend(["Our Strategy Mean", "Our Strategy", "Full Equity", "60/40", "Mean"], loc="lower right");
 st.pyplot(fig6)
 
