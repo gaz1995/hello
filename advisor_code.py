@@ -235,7 +235,7 @@ st.pyplot(fig4)
 
 st.write("Savings make for most of the portfolio in the early stages and capital gains overtake later. Both are crutial for building wealth!")
 #plot capital gains and contributions
-fig, ax = plt.subplots(figsize=(14,5),sharey=True)
+fig5, ax = plt.subplots(figsize=(14,5),sharey=True)
 future_expectations[["contributions_csum", "capital_gains_csum"]].plot(kind="bar",stacked=True,ax=ax,color=["tab:orange", "tab:blue"])
 surpass = future_expectations.index[future_expectations["capital_gains_csum"] > future_expectations["contributions_csum"]].min()
 plt.ylabel("Value in USD")
