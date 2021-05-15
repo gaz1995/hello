@@ -227,7 +227,7 @@ future_expectations[["total_csum", "real_return_csum", "inflation_loss_csum"]].p
 plt.title(f'By {int(future_dates[-1])} the expected total return could reach {int(future_expectations.iloc[investment_horizon,11])} USD, OR {int(future_expectations.iloc[investment_horizon,14])} USD when discounting for inflation.', size=13)
 plt.ylabel("Portfolio value in USD")
 plt.xlabel("Future Years")
-ax.legend(["Loss of purchasing power", "Total Nominal Returns", "Total Real Returns"])
+ax.legend(["Total Nominal Returns", "Total Real Returns","Loss of purchasing power"])
 ax.tick_params(labeltop=False, labelright=True)
 plt.grid(axis="y", linestyle="--")
 ax.set_axisbelow(True);
