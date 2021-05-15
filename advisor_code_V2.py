@@ -24,6 +24,9 @@ monthly_contribution = st.sidebar.number_input(value=1000,label="What is your mo
 inflation = st.sidebar.selectbox(label="What is your annual inflation expectation?",options=[0,0.01,0.015,0.02,0.025,0.03])
 initial_investment = st.sidebar.number_input(value=10000,label="What is your initial investment amount in dollar amount?",min_value=10000,max_value=1000000,step=500)
 
+#sidebar text
+st.sidebar.write(f"Your risk level is {risk_level}")
+
 #match the risk levels to the standard deviation and leverage values
 stdev_options = [0.05, 0.1, 0.15, 0.20, 0.25]
 stdev_target = stdev_options[int(risk_level.index(option))]
