@@ -177,7 +177,7 @@ def performance_table(returns_df=returns_df):
     performance_df.index.name = "Performance Stats (in decimals)"
     return performance_df
 performance_table = performance_table()
-performance_table
+st.table(performance_table)
 
 #dataframe with future expectations
 today_date = dt.datetime.now().year
