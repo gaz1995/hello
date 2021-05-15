@@ -205,7 +205,7 @@ plt.legend()
 plt.show()
 st.pyplot(fig3)
 
-st.write("We must consider the effect of inflation on the portfolio's returns. Staying in cash if a bad idea if you expect positive inflation.")
+st.write("We must consider the effect of inflation on the portfolio's returns. Staying in cash is a bad idea if you expect positive inflation.")
 #plot nominal and real returns
 fig4, ax = plt.subplots(figsize=(14,5))
 future_expectations[["total_csum", "real_return_csum"]].plot(kind="bar",stacked=False,ax=ax)
