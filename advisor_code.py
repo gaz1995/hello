@@ -5,6 +5,7 @@ import numpy as np
 import pandas as pd
 import datetime as dt
 import time
+import seaborn as sns
 from scipy import stats
 
 #Dashboard title
