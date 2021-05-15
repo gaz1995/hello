@@ -92,7 +92,7 @@ returns_df["strategy_csum"] = returns_df["strategy"].cumsum()
 returns_df["full_equity_csum"] = returns_df["full_equity_returns"].cumsum()
 returns_df["sixty_forty_csum"] = returns_df["sixty_forty_returns"].cumsum()
 
-st.subheader("**First we will consider the historical timeline**")
+st.subheader("First we will consider the historical timeline")
 st.write("In this plot you can verify the behaviour of these portfolios when holding them from 2007 to the present date!")
 #plot the cumulative returns of the strategy and benchmarks
 fig1,sp = plt.subplots(figsize=(14, 5))
