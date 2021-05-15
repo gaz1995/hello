@@ -242,7 +242,11 @@ plt.title(f"Capital gains begin to exceed contribution staring from {surpass}.",
 plt.ylabel("Value in USD")
 plt.xlabel("Future Years")
 years_array = [i for i in future_expectations.index]
-ax.axvline(x=years_array.index(surpass), color="black",ls='--')
+if surpass != nan:
+  ax.axvline(x=years_array.index(surpass), color="black",ls='--')
+  plt.title(f"Capital gains begin to exceed contribution staring from {surpass}.", size=13)
+else:
+  plt.title(f"Capital gains do not exceed the monthly contribution with these chosen preferences.", size=13)         
 ax.legend(["Surpass Year", "Monthly Contributions", "Capital Gains"])
 ax.tick_params(labeltop=False, labelright=True)
 ax.grid(axis="y", linestyle="--")
