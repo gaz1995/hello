@@ -214,7 +214,7 @@ ax.plot(future_expectations["mean_return_csum"]*100, color="red", label="Strateg
 ax.plot(future_expectations["upper_ci_csum"]*100, color="blue", label="Upper Confidence Interval", alpha=0.5)
 ax.plot(future_expectations["lower_ci_csum"]*100, color="blue", label="Lower Confidence Interval", alpha=0.5)
 ax.fill_between(future_expectations.index ,future_expectations["upper_ci_csum"]*100, future_expectations["lower_ci_csum"]*100, alpha=0.2)
-plt.title(f"The expected total returns fall between {round(future_expectations.iloc[investment_horizon.value,5]*100,2)}% and {round(future_expectations.iloc[investment_horizon.value,4]*100,2)}% in the span of {investment_horizon.value} years, considering our past performance.", size=13)
+plt.title(f"The expected total returns fall between {round(future_expectations.iloc[investment_horizon,5]*100,2)}% and {round(future_expectations.iloc[investment_horizon,4]*100,2)}% in the span of {investment_horizon.value} years, considering our past performance.", size=13)
 plt.xlabel("Years")
 plt.ylabel("Cumulative Returns in %")
 plt.legend();
@@ -224,7 +224,7 @@ st.write("We must consider the effect of inflation on the portfolio's returns. S
 #plot nominal and real returns
 fig4, ax = plt.subplots(figsize=(14,5))
 future_expectations[["total_csum", "real_return_csum", "inflation_loss_csum"]].plot(kind="bar",stacked=False,ax=ax, color=["tab:blue", "tab:orange", "tab:red"])
-plt.title(f'By {int(future_dates[-1])} the expected total return could reach {int(future_expectations.iloc[investment_horizon.value,11])} USD, OR {int(future_expectations.iloc[investment_horizon.value,14])} USD when discounting for inflation.', size=13)
+plt.title(f'By {int(future_dates[-1])} the expected total return could reach {int(future_expectations.iloc[investment_horizon,11])} USD, OR {int(future_expectations.iloc[investment_horizon,14])} USD when discounting for inflation.', size=13)
 plt.ylabel("Portfolio value in USD")
 plt.xlabel("Future Years")
 ax.legend(["Loss of purchasing power", "Total Nominal Returns", "Total Real Returns"])
