@@ -9,6 +9,44 @@ import seaborn as sns
 from scipy import stats
 from matplotlib.patches import Rectangle
 
+st.markdown(
+    """
+<style>
+.reportview-container .markdown-text-container {
+    font-family: monospace;
+}
+.sidebar .sidebar-content {
+    color: white;
+}
+.Widget>label {
+    color: white;
+    font-family: monospace;
+}
+[class^="st-b"]  {
+    color: white;
+    font-family: monospace;
+}
+.st-bb {
+    background-color: transparent;
+}
+.st-at {
+    background-color: #0c0080;
+}
+footer {
+    font-family: monospace;
+}
+.reportview-container .main footer, .reportview-container .main footer a {
+    color: #0c0080;
+}
+header .decoration {
+    background-image: none;
+}
+
+</style>
+""",
+    unsafe_allow_html=True,
+)
+
 #Dashboard title
 st.title('Financial Planning Dashboard')
 
@@ -128,7 +166,7 @@ def max_drawdown(log_returns):
     daily_drawdown = ((index - peaks)/peaks)*100
     return daily_drawdown
 
-st.write("Drawdown is very usefull at verifiying the peak-to-trough. Are you able to stomach a drop of more than 50%?",key=11)
+st.write("Drawdown is very useful at verifiying the peak-to-trough. Are you able to stomach a drop of more than 50%?",key=11)
 #Plot drawdowns
 fig2, sp = plt.subplots(figsize=(14,5))
 sp.plot(max_drawdown(returns_df["strategy"]), color="green", label="Strategy Drawdown")
