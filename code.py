@@ -10,10 +10,10 @@ from scipy import stats
 from matplotlib.patches import Rectangle
 
 #Dashboard title
-st.title('Financial Planning Dashboard')
+st.title('Financial Planning Dashboard', key=9)
 
 #Get the inputs from the user for various variables
-#st.sidebar.write("User Input Features")
+st.sidebar.write("User Input Features", key=10)
 name = st.sidebar.text_input("What is your name?")
 risk_level = [('Low Risk'), ('Moderate Low Risk'), ('Moderate Risk'), ('Moderate High Risk'), ('High Risk')]
 option = st.sidebar.selectbox('Which of the following options best describes your risk profile?', risk_level)
@@ -23,7 +23,7 @@ inflation = st.sidebar.selectbox(label="What is your annual inflation expectatio
 initial_investment = st.sidebar.number_input(value=10000,label="What is your initial investment amount in dollar amount?",min_value=10000,max_value=1000000,step=500)
 
 # sidebar text
-st.sidebar.write(f"Hi {name}! You have a {option} appetite. You decided to begin investing with {initial_investment}$ and to contribute monthly with {monthly_contribution}$ during {investment_horizon} years. Finally you expect an annual inflation of {inflation * 100}%.")
+st.sidebar.write(f"Hi {name}! You have a {option} appetite. You decided to begin investing with {initial_investment}$ and to contribute monthly with {monthly_contribution}$ during {investment_horizon} years. Finally you expect an annual inflation of {inflation * 100}%.", key=11)
 
 #match the risk levels to the standard deviation and leverage values
 stdev_options = [0.05, 0.1, 0.15, 0.20, 0.25]
