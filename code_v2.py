@@ -320,7 +320,7 @@ st.pyplot(fig7)
 st.write("This matrix allows us to verify how each assets behave in relation to the others. Low and negative correlations are key for diversification purposes!",key=20) 
 #plot correlation matrix
 correlation_df = returns_df[assets].corr()
-fig8, ax = plt.subplots(1,1,figsize=(12,10))
+fig8, ax = plt.subplots(1,1,figsize=(8,6))
 sns.heatmap(correlation_df, annot=True, cmap="viridis", cbar_kws={"label": "Correlation Intensity: 1 =Perfectly Correlated and -1 =Inversly Correlated"})
 plt.ylabel("Asset Classes")
 plt.title("Correlation between the assets proves what we already know: bonds and stocks have low to negative correlation.", pad=20);
