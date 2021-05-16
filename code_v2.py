@@ -12,6 +12,10 @@ from matplotlib.patches import Rectangle
 #Dashboard title
 st.title('Financial Planning Dashboard')
 
+st.text("The dashboard consists of two parts: \n1. Visulization \n2. Strategy Fundamentals")
+
+st.header("1. Visualization")
+
 st.sidebar.write("User Input Features", key=1)
 #Get the inputs from the user for various variables
 name = st.sidebar.text_input("What is your name?")
