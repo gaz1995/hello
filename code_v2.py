@@ -9,6 +9,9 @@ import seaborn as sns
 from scipy import stats
 from matplotlib.patches import Rectangle
 
+#set page as wide by default
+st.set_page_config(layout="wide")
+
 #Dashboard title
 st.title('Financial Planning Dashboard')
 
