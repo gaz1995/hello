@@ -179,8 +179,8 @@ def performance_table(returns_df=returns_df):
     performance_df = pd.merge(performance_df, sixty_forty, left_index=True, right_index=True)
     performance_df.index.name = "Performance Stats (in decimals)"
     return performance_df
-performance_table = performance_table()
-st.table(performance_table)
+summary_table = performance_table()
+st.table(summary_table)
 
 
 #variables for dynamic text
