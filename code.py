@@ -23,7 +23,7 @@ inflation = st.sidebar.selectbox(label="What is your annual inflation expectatio
 initial_investment = st.sidebar.number_input(value=10000,label="What is your initial investment amount in dollar amount?",min_value=10000,max_value=1000000,step=500,key=7)
 
 # sidebar text
-st.sidebar.write(f"Hi {name}! You have a {option} appetite. You decided to begin investing with {initial_investment}$ and to contribute monthly with {monthly_contribution}$ during {investment_horizon} years. Finally you expect an annual inflation of {inflation * 100}%.", key=11)
+st.sidebar.write(f"Hi {name}! You have a {option} appetite. You decided to begin investing with {initial_investment}$ and to contribute monthly with {monthly_contribution}$ during {investment_horizon} years. Finally you expect an annual inflation of {inflation * 100}%.",key=8)
 
 #match the risk levels to the standard deviation and leverage values
 stdev_options = [0.05, 0.1, 0.15, 0.20, 0.25]
@@ -94,7 +94,7 @@ returns_df["full_equity_csum"] = returns_df["full_equity_returns"].cumsum()
 returns_df["sixty_forty_csum"] = returns_df["sixty_forty_returns"].cumsum()
 
 st.markdown("***First we will consider the historical timeline***")
-st.write(f"So, {name}, in following plot you can see the behaviour of our proposed strategy against the full equity strategy and the traditional 60/40 portfolio if you have invested your capital from 2007 to the present date!",key=12)
+st.write(f"So, {name}, in following plot you can see the behaviour of our proposed strategy against the full equity strategy and the traditional 60/40 portfolio if you have invested your capital from 2007 to the present date!",key=9)
 #plot the cumulative returns of the strategy and benchmarks
 fig1,sp = plt.subplots(figsize=(14, 5))
 sp.plot(returns_df["strategy_csum"], label="Strategy Cumulative Returns", color="green")
@@ -114,7 +114,7 @@ plt.ylabel("Cumulative Return in %")
 plt.legend();
 st.pyplot(fig1)
 
-st.write(f"Over the past 15 years, if you have invested in our proposed streatgy, you would have ended up with {int(returns_df['strategy_csum'].max())} time(s) of your initial capital, {int(returns_df['full_equity_csum'].max())} time(s) if you have invested in SPY, and {int(returns_df['sixty_forty_csum'].max())} time(s) if you have invested in traditional 60/40 portfolio. Also, as you can see that there were two events that negatively affected all portfolios, being them the 2008 global financial crisis and the most recent 2020 Covid crisis.",key=13)
+st.write(f"Over the past 15 years, if you have invested in our proposed streatgy, you would have ended up with {int(returns_df['strategy_csum'].max())} time(s) of your initial capital, {int(returns_df['full_equity_csum'].max())} time(s) if you have invested in SPY, and {int(returns_df['sixty_forty_csum'].max())} time(s) if you have invested in traditional 60/40 portfolio. Also, as you can see that there were two events that negatively affected all portfolios, being them the 2008 global financial crisis and the most recent 2020 Covid crisis.",key=10)
 
 #Drawdown calculation function
 def max_drawdown(log_returns):
@@ -124,7 +124,7 @@ def max_drawdown(log_returns):
     daily_drawdown = ((index - peaks)/peaks)*100
     return daily_drawdown
 
-st.write("Drawdown is very usefull at verifiying the peak-to-trough. Are you able to stomach a drop of more than 50%?",key=14)
+st.write("Drawdown is very usefull at verifiying the peak-to-trough. Are you able to stomach a drop of more than 50%?",key=11)
 #Plot drawdowns
 fig2, sp = plt.subplots(figsize=(14,5))
 sp.plot(max_drawdown(returns_df["strategy"]), color="green", label="Strategy Drawdown")
@@ -169,7 +169,7 @@ def performance(df):
                          "Positive days": positive_percent, "Negative days": negative_percent}
     return performance_table
 
-st.write("Here you can quantitatively compare the portfolios between various metrics.",key=15)
+st.write("Here you can quantitatively compare the portfolios between various metrics.",key=12)
 #Merge the peformance of our stratgy and benchmarks in a single dataframe
 def performance_table(returns_df=returns_df):
     strategy = pd.DataFrame(performance(returns_df["strategy"]), index = ["Our Strategy"]).T
@@ -189,7 +189,7 @@ proposed_annual_volatility = summary_table["Our Strategy"]["Annual Volatility"]
 proposed_info_sharpe = round(summary_table["Our Strategy"]["Info Sharpe"],2)
 proposed_VaR = round(summary_table["Our Strategy"]["Value-at-Risk"],2)
 proposed_positive_days = summary_table["Our Strategy"]["Positive days"]
-st.write(f"From the above summary table, you can observe that, according to your profile, our proposed strategy will yield, on average, {proposed_annual_return*100}% annual returns with {proposed_annual_volatility*100}% annual volatility, translating into a {proposed_info_sharpe} unit of return per unit of risk taken. Also, 90 out of 100 days, our proposed portfolio will not lose more than {-proposed_VaR*100}%. Finally, on average, in {proposed_positive_days*100}% days, the proposed portfolio will have positive returns.",key=16)
+st.write(f"From the above summary table, you can observe that, according to your profile, our proposed strategy will yield, on average, {proposed_annual_return*100}% annual returns with {proposed_annual_volatility*100}% annual volatility, translating into a {proposed_info_sharpe} unit of return per unit of risk taken. Also, 90 out of 100 days, our proposed portfolio will not lose more than {-proposed_VaR*100}%. Finally, on average, in {proposed_positive_days*100}% days, the proposed portfolio will have positive returns.",key=13)
 
 
 #dataframe with future expectations
@@ -222,8 +222,8 @@ future_expectations["inflation_loss_csum"] = future_expectations["inflation_loss
 future_expectations["real_return_csum"] = future_expectations["total_csum"] + future_expectations["inflation_loss_csum"]
 future_expectations = future_expectations.set_index("year")
 
-st.markdown("***Now we consider the future time horizon. Here, everything is an expectation and nothing is guaranteed***")
-st.write("In this plot we can see the long run expected trend of our strategy and the respective confidence interval.",key=17)
+st.markdown("***Now we consider the future time horizon. Here, everything is an expectation and nothing is guaranteed***",key=14)
+st.write("In this plot we can see the long run expected trend of our strategy and the respective confidence interval.",key=15)
 #plot future returns with confidence interval
 fig3, ax = plt.subplots(figsize=(14,5))
 ax.plot(future_expectations["mean_return_csum"]*100, color="red", label="Strategy Return")
@@ -236,7 +236,7 @@ plt.ylabel("Cumulative Returns in %")
 plt.legend();
 st.pyplot(fig3)
 
-st.write("We must consider the effect of inflation on the portfolio's returns. Staying in cash is a bad idea if you expect positive inflation.",key=18)
+st.write("We must consider the effect of inflation on the portfolio's returns. Staying in cash is a bad idea if you expect positive inflation.",key=16)
 #plot nominal and real returns
 fig4, ax = plt.subplots(figsize=(14,5))
 future_expectations[["total_csum", "real_return_csum", "inflation_loss_csum"]].plot(kind="bar",stacked=False,ax=ax, color=["tab:blue", "tab:orange", "tab:red"])
@@ -249,7 +249,7 @@ plt.grid(axis="y", linestyle="--")
 ax.set_axisbelow(True);
 st.pyplot(fig4)
 
-st.write("Savings make for most of the portfolio in the early stages and capital gains gain its weight as time passing by. Both are crutial for building wealth!",key=19)
+st.write("Savings make for most of the portfolio in the early stages and capital gains gain its weight as time passing by. Both are crutial for building wealth!",key=17)
 # plot capital gains and contributions
 fig5, ax = plt.subplots(figsize=(14, 5), sharey=True)
 future_expectations[["contributions_csum", "capital_gains_csum"]].plot(kind="bar", stacked=True, ax=ax,color=["tab:orange", "tab:blue"])
@@ -269,7 +269,7 @@ ax.grid(axis="y", linestyle="--")
 ax.set_axisbelow(True);
 st.pyplot(fig5)
 
-st.write("What do you value in a portfolio? Consistency, high returns, downside protection? Verify if these annual results satisfy you.",key=20)
+st.write("What do you value in a portfolio? Consistency, high returns, downside protection? Verify if these annual results satisfy you.",key=18)
 #define and plot the annual returns for each strategy
 returns_df["year"]=returns_df.index.year
 grouped_df = returns_df.groupby(returns_df["year"]).sum()
@@ -293,7 +293,7 @@ ax.axhline(mean_strategy, color="black", ls='--');
 plt.legend(["Our Strategy Mean", "Our Strategy", "Full Equity", "60/40", "Mean"], loc="lower right");
 st.pyplot(fig6)
 
-st.write("The weights are ever-changing and depend on the risk profile you choose",key=21)          
+st.write("The weights are ever-changing and depend on the risk profile you choose",key=19)          
 #define and plot the latest weights in our portfolio
 last_weights = risk_parity(target_stdev=stdev_target, leverage=leverage_target).iloc[-1]
 last_weights = last_weights[assets_index]/sum(last_weights[assets_index])*100
@@ -310,7 +310,7 @@ plt.grid(axis="y", linestyle="--")
 ax.set_axisbelow(True);
 st.pyplot(fig7)
 
-st.write("This matrix allows us to verify how each assets behaves in relation to the others. Low and negative correlations are key for diversification purposes!",key=22) 
+st.write("This matrix allows us to verify how each assets behaves in relation to the others. Low and negative correlations are key for diversification purposes!",key=20) 
 #plot correlation matrix
 correlation_df = returns_df[assets].corr()
 fig8, ax = plt.subplots(1,1,figsize=(12,10))
@@ -320,12 +320,12 @@ plt.title("Correlation between the assets proves what we already know: bonds and
 st.pyplot(fig8)
 
 st.header("2. Strategy Fundamentals")
-st.write("**The 60/40 Benchmark Portfolio**", key=1)
-st.write("We use the traditional 60/40 portfolio as our benchmark, which consists of an allocation of 60% to equities (“SPY” was used in our case) and 40% to bonds (iShares 3-7 Year Treasury Bond ETF was used in our case). The idea of having a benchmark portfolio is to provide a comparison mechanism against our own trading strategy. The primary advantage of such portfolio lies in the diversification effect offered by the partially uncorrelated nature of stocks and bonds. Also, the 60/40 is designed to provide “equity-like returns with bond-like volatility”. The incorporation of bonds in the portfolio should thus increase the risk-adjusted return and therefore the Sharpe Ratio. The historical effect has been to lower maximum drawdowns compared to portfolio fully invested in equities. Although 60/40 portfolio brings some diversification effect, its risk is still highly concentrated mainly coming from the equities. Empirical test has pointed out that a portfolio that has 60% of the capital invested in equities actually has more like 80% of its risk allocated to equities. This is due to the fact that equities tend to carry so much more risk than other asset classes.  Consequently, the idea of allocating risk instead of allocating capital was emerged, which is the central point of risk parity. We will provide more detailed explanation in the following sessions.", key=2)
+st.write("**The 60/40 Benchmark Portfolio**", key=21)
+st.write("We use the traditional 60/40 portfolio as our benchmark, which consists of an allocation of 60% to equities (“SPY” was used in our case) and 40% to bonds (iShares 3-7 Year Treasury Bond ETF was used in our case). The idea of having a benchmark portfolio is to provide a comparison mechanism against our own trading strategy. The primary advantage of such portfolio lies in the diversification effect offered by the partially uncorrelated nature of stocks and bonds. Also, the 60/40 is designed to provide “equity-like returns with bond-like volatility”. The incorporation of bonds in the portfolio should thus increase the risk-adjusted return and therefore the Sharpe Ratio. The historical effect has been to lower maximum drawdowns compared to portfolio fully invested in equities. Although 60/40 portfolio brings some diversification effect, its risk is still highly concentrated mainly coming from the equities. Empirical test has pointed out that a portfolio that has 60% of the capital invested in equities actually has more like 80% of its risk allocated to equities. This is due to the fact that equities tend to carry so much more risk than other asset classes.  Consequently, the idea of allocating risk instead of allocating capital was emerged, which is the central point of risk parity. We will provide more detailed explanation in the following sessions.", key=22)
 
-st.write("**The Idea behind the Risk Parity and All-Weather Portfolio**", key=3)
-st.write("The idea of “All weather strategy” was created to take advantage of the powers of diversification. It is a risk-balanced portfolio of asset classes constructed to provide equity-like returns with far less risk (hence a higher Sharpe ratio). In addition to it, the strategy is designed to provide consistent returns across a wide range of economic environment, therefore, being a robust strategy.", key=4)
-st.write("The rationale behind such strategy is as the following:", key=5)
-st.write("1. All asset classes are priced to have long-term expected return above cash and their return above cash is proportional to their risk. Empirical studies from “Bridgewater” have shown that asset classes tend to have similar Sharpe ratios.", key=6)
-st.write("2. Since asset classes provide similar Sharpe ratios, one can use leverage to achieve desired level of return for any asset class.", key=7)
-st.write("In our particular case, we adopted the principals of “All Weather” and created investment plan adapting to the individual investor´s risk appetite, investment horizon.", key=8)
+st.write("**The Idea behind the Risk Parity and All-Weather Portfolio**", key=23)
+st.write("The idea of “All weather strategy” was created to take advantage of the powers of diversification. It is a risk-balanced portfolio of asset classes constructed to provide equity-like returns with far less risk (hence a higher Sharpe ratio). In addition to it, the strategy is designed to provide consistent returns across a wide range of economic environment, therefore, being a robust strategy.", key=24)
+st.write("The rationale behind such strategy is as the following:", key=25)
+st.write("1. All asset classes are priced to have long-term expected return above cash and their return above cash is proportional to their risk. Empirical studies from “Bridgewater” have shown that asset classes tend to have similar Sharpe ratios.", key=26)
+st.write("2. Since asset classes provide similar Sharpe ratios, one can use leverage to achieve desired level of return for any asset class.", key=27)
+st.write("In our particular case, we adopted the principals of “All Weather” and created investment plan adapting to the individual investor´s risk appetite, investment horizon.", key=28)
