@@ -12,7 +12,7 @@ from matplotlib.patches import Rectangle
 #Dashboard title
 st.title('Financial Planning Dashboard')
 
-st.text("The dashboard consists of two parts: \n1. Visulization \n2. Strategy Fundamentals")
+st.text("The dashboard consists of two parts: \n1. Visualization \n2. Strategy Fundamentals")
 
 st.header("1. Visualization")
 
@@ -98,7 +98,7 @@ returns_df["full_equity_csum"] = returns_df["full_equity_returns"].cumsum()
 returns_df["sixty_forty_csum"] = returns_df["sixty_forty_returns"].cumsum()
 
 st.markdown("***First we will consider the historical timeline***")
-st.write(f"So, {name}, in following plot you can see the behaviour of our proposed strategy against the full equity strategy and the traditional 60/40 portfolio if you have invested your capital from 2007 to the present date!",key=9)
+st.write(f"So, {name}, in the following plot you can see the behaviour of our proposed strategy against a full equity portfolio and the traditional 60/40 portfolio if you had invested your capital from 2007 to the present date!",key=9)
 #plot the cumulative returns of the strategy and benchmarks
 fig1,sp = plt.subplots(figsize=(14, 5))
 sp.plot(returns_df["strategy_csum"], label="Strategy Cumulative Returns", color="green")
@@ -118,7 +118,7 @@ plt.ylabel("Cumulative Return in %")
 plt.legend();
 st.pyplot(fig1)
 
-st.write(f"Over the past 15 years, if you have invested in our proposed streatgy, you would have ended up with {int(returns_df['strategy_csum'].max())} time(s) of your initial capital, {int(returns_df['full_equity_csum'].max())} time(s) if you have invested in SPY, and {int(returns_df['sixty_forty_csum'].max())} time(s) if you have invested in traditional 60/40 portfolio. Also, as you can see that there were two events that negatively affected all portfolios, being them the 2008 global financial crisis and the most recent 2020 Covid crisis.",key=10)
+st.write(f"Over the past 15 years, if you had invested in our proposed streatgy, you would have ended up with {round(returns_df['strategy_csum'].max(),1)} time(s) of your initial capital, {round(returns_df['full_equity_csum'].max(),1)} time(s) if you have invested in SPY, and {round(returns_df['sixty_forty_csum'].max(),1)} time(s) if you have invested in traditional 60/40 portfolio. Also, as you can see that there were two events that negatively affected all portfolios, them being the 2008 global financial crisis and the most recent 2020 Covid crisis.",key=10)
 
 #Drawdown calculation function
 def max_drawdown(log_returns):
