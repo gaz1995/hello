@@ -222,7 +222,7 @@ future_expectations["inflation_loss_csum"] = future_expectations["inflation_loss
 future_expectations["real_return_csum"] = future_expectations["total_csum"] + future_expectations["inflation_loss_csum"]
 future_expectations = future_expectations.set_index("year")
 
-st.markdown("***Now we consider the future time horizon. Here, everything is an expectation and nothing is guaranteed***",key=14)
+st.markdown("***Now we consider the future time horizon. Here, everything is an expectation and nothing is guaranteed***")
 st.write("In this plot we can see the long run expected trend of our strategy and the respective confidence interval.",key=15)
 #plot future returns with confidence interval
 fig3, ax = plt.subplots(figsize=(14,5))
