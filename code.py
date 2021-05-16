@@ -10,7 +10,7 @@ from scipy import stats
 from matplotlib.patches import Rectangle
 
 #Dashboard title
-st.title('Financial Planning Dashboard', key=9)
+st.title('Financial Planning Dashboard')
 
 #Get the inputs from the user for various variables
 st.sidebar.write("User Input Features", key=10)
