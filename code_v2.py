@@ -244,7 +244,7 @@ st.write("We must consider the effect of inflation on the portfolio's returns. S
 #plot nominal and real returns
 fig4, ax = plt.subplots(figsize=(14,5))
 future_expectations[["total_csum", "real_return_csum", "inflation_loss_csum"]].plot(kind="bar",stacked=False,ax=ax, color=["tab:blue", "tab:orange", "tab:red"])
-plt.title(f'By {int(future_dates[-1])} the expected total return could reach {int(future_expectations.iloc[investment_horizon,11])} USD, OR {int(future_expectations.iloc[investment_horizon,14])} USD when discounting for inflation.', size=13)
+plt.title(f'By {int(future_dates[-1])} the expected total return could reach {int(future_expectations.iloc[investment_horizon,11])} USD, or {int(future_expectations.iloc[investment_horizon,14])} USD when discounting for inflation.', size=13)
 plt.ylabel("Portfolio value in USD")
 plt.xlabel("Future Years")
 ax.legend(["Total Nominal Returns", "Total Real Returns","Loss of purchasing power"])
@@ -253,7 +253,7 @@ plt.grid(axis="y", linestyle="--")
 ax.set_axisbelow(True);
 st.pyplot(fig4)
 
-st.write("Savings make for most of the portfolio in the early stages and capital gains gain its weight as time passing by. Both are crutial for building wealth!",key=17)
+st.write("Savings make for most of the portfolio in the early stages but capital gains start weighing more with time. Both are crucial for building wealth!",key=17)
 # plot capital gains and contributions
 fig5, ax = plt.subplots(figsize=(14, 5), sharey=True)
 future_expectations[["contributions_csum", "capital_gains_csum"]].plot(kind="bar", stacked=True, ax=ax,color=["tab:orange", "tab:blue"])
@@ -273,7 +273,7 @@ ax.grid(axis="y", linestyle="--")
 ax.set_axisbelow(True);
 st.pyplot(fig5)
 
-st.write("What do you value in a portfolio? Consistency, high returns, downside protection? Verify if these annual results satisfy you.",key=18)
+st.write("What do you value in a portfolio? Consistency, high returns, downside protection? Verify if these historical annual results satisfy you.",key=18)
 #define and plot the annual returns for each strategy
 returns_df["year"]=returns_df.index.year
 grouped_df = returns_df.groupby(returns_df["year"]).sum()
@@ -297,7 +297,7 @@ ax.axhline(mean_strategy, color="black", ls='--');
 plt.legend(["Our Strategy Mean", "Our Strategy", "Full Equity", "60/40", "Mean"], loc="lower right");
 st.pyplot(fig6)
 
-st.write("The weights are ever-changing and depend on the risk profile you choose",key=19)          
+st.write("The portfolio composition is ever-changing and depends on the risk profile you choose as well as the individual and combined behaviour of these assets.",key=19)          
 #define and plot the latest weights in our portfolio
 last_weights = risk_parity(target_stdev=stdev_target, leverage=leverage_target).iloc[-1]
 last_weights = last_weights[assets_index]/sum(last_weights[assets_index])*100
@@ -314,7 +314,7 @@ plt.grid(axis="y", linestyle="--")
 ax.set_axisbelow(True);
 st.pyplot(fig7)
 
-st.write("This matrix allows us to verify how each assets behaves in relation to the others. Low and negative correlations are key for diversification purposes!",key=20) 
+st.write("This matrix allows us to verify how each assets behave in relation to the others. Low and negative correlations are key for diversification purposes!",key=20) 
 #plot correlation matrix
 correlation_df = returns_df[assets].corr()
 fig8, ax = plt.subplots(1,1,figsize=(12,10))
@@ -332,4 +332,4 @@ st.write("The idea of “All weather strategy” was created to take advantage o
 st.write("The rationale behind such strategy is as the following:", key=25)
 st.write("1. All asset classes are priced to have long-term expected return above cash and their return above cash is proportional to their risk. Empirical studies from “Bridgewater” have shown that asset classes tend to have similar Sharpe ratios.", key=26)
 st.write("2. Since asset classes provide similar Sharpe ratios, one can use leverage to achieve desired level of return for any asset class.", key=27)
-st.write("In our particular case, we adopted the principals of “All Weather” and created investment plan adapting to the individual investor´s risk appetite, investment horizon.", key=28)
+st.write("In our particular case, we adopted the principals of “All Weather” and created an investment plan adapted to the individual investor's risk appetite, investment horizon and other preferences", key=28)
