@@ -9,44 +9,6 @@ import seaborn as sns
 from scipy import stats
 from matplotlib.patches import Rectangle
 
-st.markdown(
-    """
-<style>
-.reportview-container .markdown-text-container {
-    font-family: monospace;
-}
-.sidebar .sidebar-content {
-    color: white;
-}
-.Widget>label {
-    color: white;
-    font-family: monospace;
-}
-[class^="st-b"]  {
-    color: white;
-    font-family: monospace;
-}
-.st-bb {
-    background-color: transparent;
-}
-.st-at {
-    background-color: #0c0080;
-}
-footer {
-    font-family: monospace;
-}
-.reportview-container .main footer, .reportview-container .main footer a {
-    color: #0c0080;
-}
-header .decoration {
-    background-image: none;
-}
-
-</style>
-""",
-    unsafe_allow_html=True,
-)
-
 #Dashboard title
 st.title('Financial Planning Dashboard')
 
