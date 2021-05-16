@@ -31,8 +31,7 @@ initial_investment = st.sidebar.number_input(value=10000,
                                              min_value=1000, max_value=1000000, step=500)
 
 # sidebar text
-st.sidebar.write(
-    f"Hi {name}! You have a {option} appetite. You decided to begin investing with {initial_investment}$ and to contribute monthly with {monthly_contribution}$ during {investment_horizon} year. Finally you expect an annual inflation of {inflation * 100}%.")
+st.sidebar.write(f"Hi {name}! You have a {option} appetite. You decided to begin investing with {initial_investment}$ and to contribute monthly with {monthly_contribution}$ during {investment_horizon} years. Finally you expect an annual inflation of {inflation * 100}%.")
 
 # match the risk levels to the standard deviation and leverage values
 stdev_options = [0.05, 0.1, 0.15, 0.20, 0.25]
@@ -107,8 +106,7 @@ returns_df["sixty_forty_csum"] = returns_df["sixty_forty_returns"].cumsum()
 
 st.subheader("First we will consider the historical timeline")
 
-st.write(
-    f"So, {name}, in following plot you can see the behaviour of our proposed strategy against the full equity strategy and the traditional 60/40 portfolio if you have invested your capital from 2007 to the present date!")
+st.write(f"So, {name}, in following plot you can see the behaviour of our proposed strategy against the full equity strategy and the traditional 60/40 portfolio if you have invested your capital from 2007 to the present date!")
 
 # plot the cumulative returns of the strategy and benchmarks
 fig1, sp = plt.subplots(figsize=(14, 5))
@@ -132,8 +130,7 @@ plt.legend();
 st.pyplot(fig1)
 
 
-st.write(
-    f"Over the past 15 years, if you have invested in our proposed streatgy, you would have ended up with {int(returns_df['strategy_csum'].max())} time(s) of your initial capital, {int(returns_df['full_equity_csum'].max())} time(s) if you have invested in SPY, and {int(returns_df['sixty_forty_csum'].max())} time(s) if you have invested in traditional 60/40 portfolio. Also, as you can see that there were two events that negatively affected all portfolios, being them the 2008 global financial crisis and the most recent 2020 Covid crisis.")
+st.write(f"Over the past 15 years, if you have invested in our proposed streatgy, you would have ended up with {int(returns_df['strategy_csum'].max())} time(s) of your initial capital, {int(returns_df['full_equity_csum'].max())} time(s) if you have invested in SPY, and {int(returns_df['sixty_forty_csum'].max())} time(s) if you have invested in traditional 60/40 portfolio. Also, as you can see that there were two events that negatively affected all portfolios, being them the 2008 global financial crisis and the most recent 2020 Covid crisis.")
 
 
 # Drawdown calculation function
@@ -164,7 +161,6 @@ plt.xlabel("Years")
 plt.ylabel("Drawdown in %")
 plt.legend();
 st.pyplot(fig2)
-
 
 
 # A function that creates a table with various performance metrics
@@ -207,7 +203,7 @@ def performance_table(returns_df=returns_df):
     performance_df.index.name = "Performance Stats (in decimals)"
     return performance_df
 
-
+  
 summary_table = performance_table()
 st.table(summary_table)
 
@@ -240,8 +236,7 @@ future_expectations["contributions"] = monthly_contribution * 12
 future_expectations.iloc[0, 7] = initial_investment
 future_expectations["contributions_csum"] = future_expectations["contributions"].cumsum()
 future_expectations.iloc[0, 8] = initial_investment
-future_expectations["capital_gains"] = future_expectations["contributions_csum"].shift(1) * future_expectations[
-    "mean_return"]
+future_expectations["capital_gains"] = future_expectations["contributions_csum"].shift(1) * future_expectations["mean_return"]
 future_expectations.iloc[0, 9] = 0
 future_expectations["capital_gains_csum"] = future_expectations["capital_gains"].cumsum()
 future_expectations["total"] = future_expectations["contributions"] + future_expectations["capital_gains"]
@@ -275,8 +270,7 @@ st.write(
 # plot nominal and real returns
 fig4, ax = plt.subplots(figsize=(14, 5))
 future_expectations[["total_csum", "real_return_csum", "inflation_loss_csum"]].plot(kind="bar", stacked=False, ax=ax,
-                                                                                    color=["tab:blue", "tab:orange",
-                                                                                           "tab:red"])
+                                                                                    color=["tab:blue", "tab:orange", "tab:red"])
 plt.title(
     f'By {int(future_dates[-1])} the expected total return could reach {int(future_expectations.iloc[investment_horizon, 11])} USD, or {int(future_expectations.iloc[investment_horizon, 14])} USD when discounting for inflation.',
     size=13)
@@ -289,12 +283,7 @@ ax.set_axisbelow(True);
 st.pyplot(fig4)
 
 
-
-
-
-
-st.write(
-    "Savings make for most of the portfolio in the early stages and capital gains gain its weight as time passing by. Both are crutial for building wealth!")
+st.write("Savings make for most of the portfolio in the early stages and capital gains gain its weight as time passing by. Both are crutial for building wealth!")
 # plot capital gains and contributions
 fig5, ax = plt.subplots(figsize=(14, 5), sharey=True)
 future_expectations[["contributions_csum", "capital_gains_csum"]].plot(kind="bar", stacked=True, ax=ax,
@@ -382,19 +371,14 @@ st.pyplot(fig8)
 
 st.header("2. Strategy Fundamentals")
 st.write("**The 60/40 Benchmark Portfolio**")
-st.write(
-    "We use the traditional 60/40 portfolio as our benchmark, which consists of an allocation of 60% to equities (“SPY” was used in our case) and 40% to bonds (iShares 3-7 Year Treasury Bond ETF was used in our case). The idea of having a benchmark portfolio is to provide a comparison mechanism against our own trading strategy. The primary advantage of such portfolio lies in the diversification effect offered by the partially uncorrelated nature of stocks and bonds. Also, the 60/40 is designed to provide “equity-like returns with bond-like volatility”. The incorporation of bonds in the portfolio should thus increase the risk-adjusted return and therefore the Sharpe Ratio. The historical effect has been to lower maximum drawdowns compared to portfolio fully invested in equities. Although 60/40 portfolio brings some diversification effect, its risk is still highly concentrated mainly coming from the equities. Empirical test has pointed out that a portfolio that has 60% of the capital invested in equities actually has more like 80% of its risk allocated to equities. This is due to the fact that equities tend to carry so much more risk than other asset classes.  Consequently, the idea of allocating risk instead of allocating capital was emerged, which is the central point of risk parity. We will provide more detailed explanation in the following sessions.")
+st.write("We use the traditional 60/40 portfolio as our benchmark, which consists of an allocation of 60% to equities (“SPY” was used in our case) and 40% to bonds (iShares 3-7 Year Treasury Bond ETF was used in our case). The idea of having a benchmark portfolio is to provide a comparison mechanism against our own trading strategy. The primary advantage of such portfolio lies in the diversification effect offered by the partially uncorrelated nature of stocks and bonds. Also, the 60/40 is designed to provide “equity-like returns with bond-like volatility”. The incorporation of bonds in the portfolio should thus increase the risk-adjusted return and therefore the Sharpe Ratio. The historical effect has been to lower maximum drawdowns compared to portfolio fully invested in equities. Although 60/40 portfolio brings some diversification effect, its risk is still highly concentrated mainly coming from the equities. Empirical test has pointed out that a portfolio that has 60% of the capital invested in equities actually has more like 80% of its risk allocated to equities. This is due to the fact that equities tend to carry so much more risk than other asset classes.  Consequently, the idea of allocating risk instead of allocating capital was emerged, which is the central point of risk parity. We will provide more detailed explanation in the following sessions.")
 
 st.write("**The Idea behind the Risk Parity and All-Weather Portfolio**")
-st.write(
-    "The idea of “All weather strategy” was created to take advantage of the powers of diversification. It is a risk-balanced portfolio of asset classes constructed to provide equity-like returns with far less risk (hence a higher Sharpe ratio). In addition to it, the strategy is designed to provide consistent returns across a wide range of economic environment, therefore, being a robust strategy.")
+st.write("The idea of “All weather strategy” was created to take advantage of the powers of diversification. It is a risk-balanced portfolio of asset classes constructed to provide equity-like returns with far less risk (hence a higher Sharpe ratio). In addition to it, the strategy is designed to provide consistent returns across a wide range of economic environment, therefore, being a robust strategy.")
 st.write("The rationale behind such strategy is as the following:")
-st.write(
-    "1. All asset classes are priced to have long-term expected return above cash and their return above cash is proportional to their risk. Empirical studies from “Bridgewater” have shown that asset classes tend to have similar Sharpe ratios.")
-st.write(
-    "2. Since asset classes provide similar Sharpe ratios, one can use leverage to achieve desired level of return for any asset class.")
-st.write(
-    "In our particular case, we adopted the principals of “All Weather” and created investment plan adapting to the individual investor´s risk appetite, investment horizon.")
+st.write("1. All asset classes are priced to have long-term expected return above cash and their return above cash is proportional to their risk. Empirical studies from “Bridgewater” have shown that asset classes tend to have similar Sharpe ratios.")
+st.write("2. Since asset classes provide similar Sharpe ratios, one can use leverage to achieve desired level of return for any asset class.")
+st.write("In our particular case, we adopted the principals of “All Weather” and created investment plan adapting to the individual investor´s risk appetite, investment horizon.")
 
 
 
