@@ -14,13 +14,13 @@ st.title('Financial Planning Dashboard')
 
 st.sidebar.write("User Input Features", key=1)
 #Get the inputs from the user for various variables
-name = st.sidebar.text_input("What is your name?",key=2)
+name = st.sidebar.text_input("What is your name?")
 risk_level = [('Low Risk'), ('Moderate Low Risk'), ('Moderate Risk'), ('Moderate High Risk'), ('High Risk')]
-option = st.sidebar.selectbox('Which of the following options best describes your risk profile?', risk_level,key=3)
-investment_horizon = st.sidebar.slider('Which is your investment horizon (the minimum inv.horizon is 10 years)?',value=20,min_value=10,max_value=40,key=4)
-monthly_contribution = st.sidebar.number_input(value=1000,label="What is your monthly contribution in dollar amount?",min_value=0,max_value=1000000,step=100,key=5)
+option = st.sidebar.selectbox('Which of the following options best describes your risk profile?', risk_level)
+investment_horizon = st.sidebar.slider('Which is your investment horizon (the minimum inv.horizon is 10 years)?',value=20,min_value=10,max_value=40)
+monthly_contribution = st.sidebar.number_input(value=1000,label="What is your monthly contribution in dollar amount?",min_value=0,max_value=1000000,step=100)
 inflation = st.sidebar.selectbox(label="What is your annual inflation expectation?",options=[0,0.01,0.015,0.02,0.025,0.03],key=6)
-initial_investment = st.sidebar.number_input(value=10000,label="What is your initial investment amount in dollar amount?",min_value=10000,max_value=1000000,step=500,key=7)
+initial_investment = st.sidebar.number_input(value=10000,label="What is your initial investment amount in dollar amount?",min_value=10000,max_value=1000000,step=500)
 
 # sidebar text
 st.sidebar.write(f"Hi {name}! You have a {option} appetite. You decided to begin investing with {initial_investment}$ and to contribute monthly with {monthly_contribution}$ during {investment_horizon} years. Finally you expect an annual inflation of {inflation * 100}%.",key=8)
